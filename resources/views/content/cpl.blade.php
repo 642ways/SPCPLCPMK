@@ -2,17 +2,16 @@
     <div class="grid grid-cols-12">
         <!-- Sidebar -->
         <x-sidebar/>
-        <div class="col-span-2   ">
-        </div>
+
 
         <!-- Main Content -->
-        <div class="col-span-10 overflow-y-auto mt-16">
-            <h2 class="text-2xl font-bold ml-8 mb-4 mt-4"> CPL </h2>
+        <div class="col-span-10 overflow-y-auto mt-8">
+            <h2 class="text-2xl font-bold ml-8 mb-2 mt-2"> CPL </h2>
                 <!-- Tombol Tambah -->
                 <x-add-button type="submit" class="ml-6">
                     Tambah data
                 </x-add-button>
-            <main class="w-full min-h-screen bg-[#F6F1F1]">
+            <main class="grid grid-row-5 w-full min-h-screen bg-[#F6F1F1]">
 
                     <div class="w-full overflow-hidden shadow-sm sm:rounded-lg mt-8">
 

@@ -3,20 +3,22 @@
         <!-- Sidebar -->
 
         <x-sidebar/>
-        <div class="col-span-2   ">
+        <div class="col-span-2">
         </div>
 
-        <!-- Main Content -->
-        <div class="col-span-10 overflow-y-auto  ">
 
-            <div class="flex justify-between mt-16 h-16 border-b border-black">
-                <a class="text-2xl font-bold ml-8 mb-4 mt-4"> Tabel Mata Kuliah Teknik Komputer </a>
-                <a class="text-2xl font-bold ml-8 mb-4 mt-4 text-right mr-8"> Universitas Diponegoro </a>
+
+        <!-- Main Content -->
+        <div class="col-span-10 overflow-y-auto mt-4 ">
+
+            <div class="flex justify-between h-16 border-b border-black">
+                <a class="text-2xl font-bold ml-8 mb-2 mt-1"> Tabel Mata Kuliah Teknik Komputer </a>
+                <a class="text-2xl font-bold ml-8 mb-2 mt-1 text-right mr-8"> Universitas Diponegoro </a>
                 <!-- Tombol Tambah -->
             </div>
-            <main class="w-full min-h-screen bg-[#F6F1F1]">
+            <main class="grid grid-row-5 h-screen bg-[#F6F1F1]">
 
-                <div class="w-full overflow-hidden shadow-sm sm:rounded-lg mt-8">
+                <div class="w-full overflow-hidden shadow-sm sm:rounded-lg mt-4">
                     <div class="p-6 text-gray-900 flex items-center justify-between">
                         <div class="flex">
                             <!-- Dropdown Jumlah Data -->

@@ -3,18 +3,17 @@
         <!-- Sidebar -->
 
         <x-sidebar/>
-        <div class="col-span-2   ">
-        </div>
+
 
         <!-- Main Content -->
         <div class="col-span-10 overflow-y-auto overflow-x-auto  ">
 
-            <div class="flex justify-between h-16 border-b border-black mt-16">
-                <a class="text-2xl font-bold ml-8 mb-4 mt-4"> Rapor Jurusan Teknik Komputer </a>
-                <a class="text-2xl font-bold ml-8 mb-4 mt-4 text-right mr-8"> Universitas Diponegoro </a>
+            <div class="flex justify-between h-16 border-b border-black mt-4">
+                <a class="text-2xl font-bold ml-8 mb-2 mt-1"> Rapor Jurusan Teknik Komputer </a>
+                <a class="text-2xl font-bold ml-8 mb-2 mt-1 text-right mr-8"> Universitas Diponegoro </a>
                 <!-- Tombol Tambah -->
             </div>
-            <main class="w-full min-h-screen bg-[#F6F1F1] ">
+            <main class="grid grid-row-5 w-full min-h-screen bg-[#F6F1F1] ">
                 <div class="py-12">
 
                     <div class="max-w-8xl mx-auto sm:px-6 lg:px-8 space-y-6">

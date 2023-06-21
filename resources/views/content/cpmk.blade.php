@@ -2,12 +2,11 @@
     <div class="grid grid-cols-12">
         <!-- Sidebar -->
         <x-sidebar/>
-        <div class="col-span-2   ">
-        </div>
+
 
         <!-- Main Content -->
-        <div class="col-span-10 overflow-y-auto mt-16 overflow-x-auto">
-            <h2 class="text-2xl font-bold ml-8 mb-4 mt-4"> CPMK </h2>
+        <div class="col-span-10 overflow-y-auto mt-8 overflow-x-auto">
+            <h2 class="text-2xl font-bold ml-8 mb-2 mt-2"> CPMK </h2>
                 <!-- Tombol Tambah -->
                 <x-text-input class="block mt-1 w-50 ml-6 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Cari Mata Kuliah" />
             <main class="w-full h-screen bg-[#F6F1F1]">
