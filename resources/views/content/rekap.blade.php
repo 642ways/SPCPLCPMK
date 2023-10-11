@@ -2,6 +2,8 @@
     <div class="grid grid-cols-12">
         <!-- Sidebar -->
         <x-sidebar/>
+        <div class="col-span-2">
+        </div>
 
         <!-- Main Content -->
         <div class="col-span-10 overflow-y-auto overflow-x-auto  ">
