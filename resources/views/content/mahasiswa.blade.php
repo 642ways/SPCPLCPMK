@@ -1,123 +1,106 @@
 <x-app-layout>
     <div class="grid grid-cols-12">
         <!-- Sidebar -->
-
-        <x-sidebar/>
+        <x-sidebar />
         <div class="col-span-2">
         </div>
-
-
-
         <!-- Main Content -->
         <div class="col-span-10 overflow-y-auto mt-4 ">
-
-
-
             <div class="flex justify-between h-16 border-b border-black">
                 <a class="text-2xl font-bold ml-8 mb-2 mt-1"> Tabel Mahasiswa Teknik Komputer </a>
                 <a class="text-2xl font-bold ml-8 mb-2 mt-1 text-right mr-8"> Universitas Diponegoro </a>
+                <meta name="csrf-token" content="{{ csrf_token() }}">
 
+                <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+                <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
+                <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
             </div>
-            <main class=" grid grid-row-5 h-screen bg-[#F6F1F1]">
-
-                <div class="w-full overflow-hidden shadow-sm sm:rounded-lg mt-4">
-                    <div class="p-6 text-gray-900 flex items-center justify-between">
-                        <div class="flex  ">
-                            <!-- Dropdown Jumlah Data -->
-                            <x-dropdown-data/>
-                            <!-- Tombol Tambah -->
-                            <x-add-button type="submit" class="ml-6" id="button">
-                                Tambah data
-                            </x-add-button>
-                        </div>
-
-                        <div class="flex items-center">
-
-                            <!-- Input Search -->
-                            <x-text-input class="block w-50 border border-gray-300 rounded-md px-4 py-2 ml-4 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Cari Mata Kuliah" />
-                        </div>
-
-                        <div class="py-12  bg-gray-100 bg-opacity-60 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0" id="modal">
+            <main class="w-full h-screen bg-[#F6F1F1]">
+                <div class="w-full overflow-hidden shadow-sm sm:rounded-lg ">
+                    <div class="p-6 text-gray-900 justify-between">
+                        <x-add-button type="submit" class="ml-6" id="button">
+                            Tambah data
+                        </x-add-button>
+                        <div class="py-12  bg-gray-100 bg-opacity-60 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0"
+                            id="mahasiswa-modal">
                             <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
-                                <div class="relative mt-24 py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
+                                <div
+                                    class="relative mt-24 py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
                                     <div class="w-full flex justify-start text-gray-600 mb-3">
-
                                     </div>
-                                    <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Tabel Mahasiswa Teknik Komputer </h1>
-                                    <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Nama</label>
-                                    <input id="name" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="James" />
-                                    <label for="nim" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Nim</label>
-                                    <input id="nim" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="21120120120034" />
-                                    <label for="angkatan" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Angkatan</label>
-                                    <input id="angkatan" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="2020" />
-                                    <div class="flex items-center justify-start w-full">
-                                        <button class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-700 transition duration-150 ease-in-out hover:bg-green-300 bg-green-400 rounded text-white px-8 py-2 text-sm">Submit</button>
-                                        <button class="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm" onclick="modalHandler()">Cancel</button>
-                                    </div>
-                                    <button class="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600" onclick="modalHandler()" aria-label="close modal" role="button">
-                                        <svg  xmlns="http://www.w3.org/2000/svg"  class="icon icon-tabler icon-tabler-x" width="20" height="20" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" />
-                                            <line x1="18" y1="6" x2="6" y2="18" />
-                                            <line x1="6" y1="6" x2="18" y2="18" />
-                                        </svg>
-                                    </button>
+                                    <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Tabel
+                                        Mahasiswa Teknik Komputer </h1>
+                                    <form action="javascript:void(0)" id="MahasiswaForm" name="MahasiswaForm"
+                                        class="form-horizontal" method="POST" enctype="multipart/form-data">
+                                        <label for="name"
+                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Nama</label>
+                                        <input name="nama" id="Nama"
+                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+                                            placeholder="Daffa" />
+                                        <label for="nim"
+                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Nim</label>
+                                        <input name="nim" id="nim"
+                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+                                            placeholder="21120120120034" />
+                                        <label for="semester"
+                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Semester</label>
+                                        <input name="semester" id="Semester"
+                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+                                            placeholder="7" />
+                                        <div class="flex items-center justify-start w-full">
+                                            <button type="submit" id="btn-save"
+                                                class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-700 transition duration-150 ease-in-out hover:bg-green-300 bg-green-400 rounded text-white px-8 py-2 text-sm">Save
+                                                Changes</button>
+                                    </form>
+                                    <button type="button"
+                                        class="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
+                                        onclick="modalHandler(false)">Cancel</button>
                                 </div>
+                                <button
+                                    class="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600"
+                                    onclick="modalHandler()" aria-label="close modal" role="button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x"
+                                        width="20" height="20" viewBox="0 0 24 24" stroke-width="2.5"
+                                        stroke="currentColor" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" />
+                                        <line x1="18" y1="6" x2="6" y2="18" />
+                                        <line x1="6" y1="6" x2="18" y2="18" />
+                                    </svg>
+                                </button>
                             </div>
                         </div>
-
-
-                    </div>
-
-                            <!-- Tabel Data -->
-                            <table class="min-w-full mt-4">
-                                <thead class="border-b-2 border-black">
-                                    <tr>
-                                        <th class="px-8  py-3 bg-[#F6F1F1] text-center text-xs leading-4 font-medium text-black uppercase tracking-wider">Nama</th>
-                                        <th class="px-8  py-3 bg-[#F6F1F1] text-center text-xs leading-4 font-medium text-black uppercase tracking-wider">NIM</th>
-                                        <th class="px-2  py-3 bg-[#F6F1F1] text-center text-xs leading-4 font-medium text-black uppercase tracking-wider">Angkatan</th>
-                                        <th class="px-2  py-3 bg-[#F6F1F1] text-center text-xs leading-4 font-medium text-black uppercase tracking-wider">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Tampilkan data menggunakan loop -->
-                                    {{-- @foreach() --}}
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-no-wrap"></td>
-                                        <td class="px-6 py-4 whitespace-no-wrap"></td>
-                                        <td class="px-6 py-4 whitespace-no-wrap"></td>
-                                        <td class="px-2 py-4 whitespace-no-wrap text-center space-x-2">
-                                            <!-- Tombol Edit -->
-                                            <x-edit-button type="submit"  id="button">
-                                                Edit
-                                            </x-edit-button>
-
-                                            <!-- Tombol Hapus -->
-                                            <form action="" method="POST" class="inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <x-danger-button type="submit">
-                                                    Delete
-                                                </x-danger-button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    {{-- @endforeach --}}
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-
+                    </div>`
                 </div>
-            </main>
+
+                <!-- Tabel Data -->
+                <table class="table table-bordered" id="mahasiswa">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nama</th>
+                            <th>NIM</th>
+                            <th>Semester</th>
+
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                </table>
         </div>
+
+    </div>
+    </div>
+
+    </div>
+    </main>
+    </div>
 
     </div>
 
 
 
-    <script>
-        let modal = document.getElementById("modal");
+    <script type="text/javascript">
+        let modal = document.getElementById("mahasiswa-modal");
 
         function modalHandler(val) {
             if (val) {
@@ -157,6 +140,143 @@
         document.addEventListener("DOMContentLoaded", function() {
             modalHandler(false);
         });
+
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('#mahasiswa').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ url('mahasiswa') }}",
+                columns: [{
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'nim',
+                        name: 'nim'
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama'
+                    },
+                    {
+                        data: 'semester',
+                        name: 'semester'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false
+                    },
+                ],
+                order: [
+                    [0, 'desc']
+                ]
+            });
+        });
+
+        function add() {
+            $('#MahasiswaForm').trigger("reset");
+            $('#MahasiswaModal').html("Add Mahasiswa");
+            $('#mahasiswa-modal').modal('show');
+            $('#id').val('');
+        }
+
+        function editFunc(id) {
+            $.ajax({
+                type: "POST",
+                url: "{{ url('edit') }}",
+                data: {
+                    id: id
+                },
+                dataType: 'json',
+                success: function(res) {
+                    // Set the modal title for editing
+                    $('#MahasiswaModal').html("Edit Mahasiswa");
+
+                    // Set the data in the form fields
+                    $('#id').val(res.id);
+                    $('#nama').val(res.nama);
+                    $('#nim').val(res.nim);
+                    $('#semester').val(res.semester);
+
+                    // Show the modal for editing
+                    modalHandler(true);
+                }
+            });
+        }
+
+
+        function deleteFunc(id) {
+            if (confirm("Delete Record?") == true) {
+                var id = id;
+                // ajax
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('delete') }}",
+                    data: {
+                        id: id
+                    },
+                    dataType: 'json',
+                    success: function(res) {
+                        var oTable = $('#mahasiswa').dataTable();
+                        oTable.fnDraw(false);
+                    }
+                });
+            }
+        }
+
+        $('#MahasiswaForm').submit(function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                type: 'POST',
+                url: "{{ url('store') }}",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: (data) => {
+                    fadeOut(modal)
+                    var oTable = $('#mahasiswa').dataTable();
+                    oTable.fnDraw(false);
+                    $("#btn-save").html('Submit');
+                    $("#btn-save").attr("disabled", false);
+                    console.log(data);
+                },
+                error: function(data) {
+                    console.log("Submit button clicked");
+                    console.log(data);
+                }
+            });
+        });
+
+        // function getMahasiswaData() {
+        //     // Make an AJAX request to the controller endpoint
+        //     $.ajax({
+        //         url: "{{ route('mahasiswa') }}", // Use the correct route name
+        //         type: "GET",
+        //         success: function(response) {
+        //             if (response.data) {
+        //                 // Log the data from the response
+        //                 console.log(response.data);
+        //             } else {
+        //                 console.error("No data in the response");
+        //             }
+        //         },
+        //         error: function(error) {
+        //             console.error(error);
+        //         }
+        //     });
+        // }
+
+        // // Call the function to fetch and log the data
+        // getMahasiswaData();
     </script>
 
 

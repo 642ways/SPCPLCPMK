@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MahasiswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +25,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('/cpl', 'content.cpl')->name('cpl');
     Route::view('/cpmk', 'content.cpmk')->name('cpmk');
     Route::view('/matakuliah', 'content.matakuliah')->name('matakuliah');
-    Route::view('/mahasiswa', 'content.mahasiswa')->name('mahasiswa');
+    // Route::view('/mahasiswa', 'content.mahasiswa')->name('mahasiswa');
+    Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa');
+    Route::post('edit', [MahasiswaController::class, 'edit']);
     Route::view('/dosen', 'content.dosen')->name('dosen');
     Route::view('/nilai', 'content.nilai')->name('nilai');
     Route::view('/rekap', 'content.rekap')->name('rekap');
@@ -39,4 +43,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+#multiuser
+Route::get('/', [HomeController::class, 'index'])->name('welcome')->middleware('auth');
+Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
+
+// Route::get('/mahasiswa', [MahasiswaController::class, 'index']);
+Route::post('store', [MahasiswaController::class, 'store']);
+Route::post('edit', [MahasiswaController::class, 'edit']);
+Route::post('delete', [MahasiswaController::class, 'destroy']);
+
+
+require __DIR__ . '/auth.php';

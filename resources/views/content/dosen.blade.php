@@ -80,6 +80,7 @@
                                     <tr>
                                         <td class="px-6 py-4 whitespace-no-wrap"></td>
                                         <td class="px-6 py-4 whitespace-no-wrap"></td>
+                                        {{-- @if ('is_admin' == '1') --}}
                                         <td class="px-2 py-4 whitespace-no-wrap text-center space-x-2">
                                             <!-- Tombol Edit -->
                                             <x-edit-button type="submit">
@@ -95,6 +96,7 @@
                                                 </x-danger-button>
                                             </form>
                                         </td>
+                                        {{-- @endif --}}
                                     </tr>
                                     {{-- @endforeach --}}
                                 </tbody>

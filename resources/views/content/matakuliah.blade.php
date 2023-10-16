@@ -157,6 +157,8 @@
         document.addEventListener("DOMContentLoaded", function() {
             modalHandler(false);
         });
+
+        $('#E,')
     </script>
 
 </x-app-layout>
