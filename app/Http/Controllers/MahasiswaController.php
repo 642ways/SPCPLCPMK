@@ -30,8 +30,8 @@ class MahasiswaController extends Controller
                         'id' => $mahasiswaId
                     ],
                     [
-                    'nama' => $request->nama,
                     'nim' => $request->nim,
+                    'nama' => $request->nama,
                     'semester' => $request->semester
                     ]);
 

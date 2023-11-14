@@ -5,81 +5,52 @@ namespace App\Http\Controllers;
 use App\Models\Mata_kuliah;
 use Illuminate\Http\Request;
 
-class MataKuliahController extends Controller
+class MatakuliahController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        if(request()->ajax()) {
+            return datatables()->of(Mata_kuliah::select('*'))
+            ->addColumn('action', 'components.matakuliah-action')
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
+        }
+        return view('content.matakuliah');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $matakuliahId = $request->id;
+
+        $matakuliah   =   Mata_kuliah::updateOrCreate(
+                    [
+                        'id' => $matakuliahId
+                    ],
+                    [
+                        'kode_MK' => $request->kode_MK,
+                        'Mata_Kuliah' => $request->Mata_Kuliah,
+                        'Tahun_ajaran' => $request->Tahun_ajaran,
+                        'SKS' => $request->SKS,
+                    ]);
+        return Response()->json($matakuliah);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Mata_kuliah  $mata_kuliah
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Mata_kuliah $mata_kuliah)
+
+    public function edit(Request $request)
     {
-        //
+        $where = array('id' => $request->id);
+        $matakuliah  = Mata_kuliah::where($where)->first();
+
+        return Response()->json($matakuliah);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Mata_kuliah  $mata_kuliah
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Mata_kuliah $mata_kuliah)
+    public function destroy(Request $request)
     {
-        //
-    }
+        $matakuliah = Mata_kuliah::where('id',$request->id)->delete();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Mata_kuliah  $mata_kuliah
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Mata_kuliah $mata_kuliah)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Mata_kuliah  $mata_kuliah
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Mata_kuliah $mata_kuliah)
-    {
-        //
+        return Response()->json($matakuliah);
     }
 }
+

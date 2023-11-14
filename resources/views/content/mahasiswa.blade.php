@@ -10,7 +10,7 @@
                 <a class="text-2xl font-bold ml-8 mb-2 mt-1"> Tabel Mahasiswa Teknik Komputer </a>
                 <a class="text-2xl font-bold ml-8 mb-2 mt-1 text-right mr-8"> Universitas Diponegoro </a>
                 <meta name="csrf-token" content="{{ csrf_token() }}">
-
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
                 <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
                 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
@@ -32,25 +32,35 @@
                                         Mahasiswa Teknik Komputer </h1>
                                     <form action="javascript:void(0)" id="MahasiswaForm" name="MahasiswaForm"
                                         class="form-horizontal" method="POST" enctype="multipart/form-data">
-                                        <label for="name"
-                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Nama</label>
-                                        <input name="nama" id="Nama"
-                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
-                                            placeholder="Daffa" />
+                                        <input type="hidden" name="id" id="id" />
                                         <label for="nim"
                                             class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Nim</label>
                                         <input name="nim" id="nim"
                                             class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
                                             placeholder="21120120120034" />
+                                        <label for="nama"
+                                            class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Nama</label>
+                                        <input name="nama" id="nama"
+                                            class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+                                            placeholder="Daffa" />
                                         <label for="semester"
                                             class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Semester</label>
-                                        <input name="semester" id="Semester"
+                                        <input name="semester" id="semester"
                                             class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-green-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
                                             placeholder="7" />
                                         <div class="flex items-center justify-start w-full">
-                                            <button type="submit" id="btn-save"
-                                                class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-700 transition duration-150 ease-in-out hover:bg-green-300 bg-green-400 rounded text-white px-8 py-2 text-sm">Save
-                                                Changes</button>
+                                            <button type="submit"
+                                                class="focus:outline-none
+                                                focus:ring-2
+                                                focus:ring-offset-2
+                                                focus:ring-green-700
+                                                transition duration-150
+                                                ease-in-out
+                                                hover:bg-green-300
+                                                bg-green-400 rounded
+                                                text-white px-8 py-2
+                                                text-sm">
+                                                Save Changes</button>
                                     </form>
                                     <button type="button"
                                         class="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
@@ -77,11 +87,9 @@
                 <table class="table table-bordered" id="mahasiswa">
                     <thead>
                         <tr>
-                            <th>Id</th>
                             <th>Nama</th>
                             <th>NIM</th>
                             <th>Semester</th>
-
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -119,6 +127,10 @@
                     requestAnimationFrame(fade);
                 }
             })();
+            $('#id').val("");
+            $('#nim').val("");
+            $('#nama').val("");
+            $('#semester').val("");
         }
 
         function fadeIn(el, display) {
@@ -153,10 +165,6 @@
                 serverSide: true,
                 ajax: "{{ url('mahasiswa') }}",
                 columns: [{
-                        data: 'id',
-                        name: 'id'
-                    },
-                    {
                         data: 'nim',
                         name: 'nim'
                     },
@@ -181,36 +189,29 @@
         });
 
         function add() {
-            $('#MahasiswaForm').trigger("reset");
-            $('#MahasiswaModal').html("Add Mahasiswa");
-            $('#mahasiswa-modal').modal('show');
-            $('#id').val('');
+            modalHandler(true);
         }
 
         function editFunc(id) {
             $.ajax({
                 type: "POST",
-                url: "{{ url('edit') }}",
+                url: "{{ url('/mahasiswa/edit') }}",
                 data: {
                     id: id
                 },
                 dataType: 'json',
                 success: function(res) {
-                    // Set the modal title for editing
-                    $('#MahasiswaModal').html("Edit Mahasiswa");
-
+                    // Show the modal using your custom modalHandler
+                    console.log(res);
                     // Set the data in the form fields
-                    $('#id').val(res.id);
-                    $('#nama').val(res.nama);
-                    $('#nim').val(res.nim);
-                    $('#semester').val(res.semester);
-
-                    // Show the modal for editing
                     modalHandler(true);
+                    $('#id').val(res.id);
+                    $('#nim').val(res.nim);
+                    $('#nama').val(res.nama);
+                    $('#semester').val(res.semester);
                 }
             });
         }
-
 
         function deleteFunc(id) {
             if (confirm("Delete Record?") == true) {
@@ -218,7 +219,7 @@
                 // ajax
                 $.ajax({
                     type: "POST",
-                    url: "{{ url('delete') }}",
+                    url: "{{ url('/mahasiswa/delete') }}",
                     data: {
                         id: id
                     },
@@ -236,17 +237,15 @@
             var formData = new FormData(this);
             $.ajax({
                 type: 'POST',
-                url: "{{ url('store') }}",
+                url: "{{ url('/mahasiswa/store') }}",
                 data: formData,
                 cache: false,
                 contentType: false,
                 processData: false,
                 success: (data) => {
-                    fadeOut(modal)
+                    modalHandler(false);
                     var oTable = $('#mahasiswa').dataTable();
                     oTable.fnDraw(false);
-                    $("#btn-save").html('Submit');
-                    $("#btn-save").attr("disabled", false);
                     console.log(data);
                 },
                 error: function(data) {
@@ -255,29 +254,5 @@
                 }
             });
         });
-
-        // function getMahasiswaData() {
-        //     // Make an AJAX request to the controller endpoint
-        //     $.ajax({
-        //         url: "{{ route('mahasiswa') }}", // Use the correct route name
-        //         type: "GET",
-        //         success: function(response) {
-        //             if (response.data) {
-        //                 // Log the data from the response
-        //                 console.log(response.data);
-        //             } else {
-        //                 console.error("No data in the response");
-        //             }
-        //         },
-        //         error: function(error) {
-        //             console.error(error);
-        //         }
-        //     });
-        // }
-
-        // // Call the function to fetch and log the data
-        // getMahasiswaData();
     </script>
-
-
 </x-app-layout>

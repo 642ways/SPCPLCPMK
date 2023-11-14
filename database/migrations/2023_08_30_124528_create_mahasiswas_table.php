@@ -14,10 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('mahasiswas', function (Blueprint $table) {
-            $table->id('id_mhs');
-            $table->string('NIM');
-            $table->string('Nama');
-            $table->string('Semester');
+            $table->id();
+            $table->string('nim');
+            $table->string('nama');
+            $table->string('semester');
             $table->timestamps();
         });
     }
